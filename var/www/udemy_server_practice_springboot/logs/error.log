@@ -1,7 +1,1 @@
-01:00:19.604 ERROR [File:UserProvider.java] [Func:deleteUser] [Line:65] [Message:DeleteUserProvider try!!]- DeleteUserProvider try!!
-01:00:19.629 ERROR [File:UserProvider.java] [Func:deleteUser] [Line:65] [Message:DeleteUserProvider try!!]- DeleteUserProvider try!!
-01:11:50.000 ERROR [File:UserProvider.java] [Func:deleteUser] [Line:65] [Message:DeleteUserProvider try!!]- DeleteUserProvider try!!
-01:11:50.016 ERROR [File:UserProvider.java] [Func:deleteUser] [Line:65] [Message:DeleteUserProvider try!!]- DeleteUserProvider try!!
-01:12:17.214 ERROR [File:UserProvider.java] [Func:deleteUser] [Line:65] [Message:DeleteUserProvider try!!]- DeleteUserProvider try!!
-01:12:17.235 ERROR [File:UserProvider.java] [Func:deleteUser] [Line:65] [Message:DeleteUserProvider try!!]- DeleteUserProvider try!!
-16:37:56.541 ERROR [File:TestController.java] [Func:getAll] [Line:38] [Message:ERROR Level �׽�Ʈ]- ERROR Level �׽�Ʈ
+00:11:24.707 ERROR [File:TestController.java] [Func:getAll] [Line:38] [Message:ERROR Level 테스트]- ERROR Level 테스트
