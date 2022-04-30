@@ -84,12 +84,22 @@ public class UserProvider {
     }
 
     public int deleteUser(int userIdx) throws BaseException{
-        try{
-		logger.error("DeleteUserProvider try!!");
-            return userDao.deleteUser(userIdx);
-        } catch (Exception exception){
-		logger.error("DeleteUserProvider",exception);
-            throw new BaseException(DATABASE_ERROR);
+        if(checkUserExist(userIdx) ==0){
+            logger.error("유저없음!!|nㅇㅇ");
+            throw new BaseException(USERS_EMPTY_USER_ID);
+        }
+        else
+        {
+            logger.error("else들어오나?\n");
+            try{
+                System.out.println("\n아니 이게 지금 왜가냐오\n");
+                int deleteUser =userDao.deleteUser(userIdx);
+                return deleteUser;
+            }
+            catch (Exception exception){
+            logger.error("DeleteUserProvider",exception);
+                throw new BaseException(DATABASE_ERROR);
+            }
         }
     }
 

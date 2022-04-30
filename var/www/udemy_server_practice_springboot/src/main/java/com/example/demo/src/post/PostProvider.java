@@ -82,6 +82,7 @@ public class PostProvider {
     public List<GetPostsRes> retrievePosts(int userIdx) throws BaseException {
 
         if(checkUserExist(userIdx) ==0){
+            System.out.println("\n포스트 된건가\n");
             throw new BaseException(USERS_EMPTY_USER_ID);
         }
 
@@ -91,6 +92,7 @@ public class PostProvider {
 
             return getPosts;
         } catch(Exception exception){
+            logger.error("\n포스!!트!!\n");
             throw new BaseException(DATABASE_ERROR);
         }
     }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.example.demo.config.BaseResponseStatus.POST_USERS_EMPTY_EMAIL;
 import static com.example.demo.config.BaseResponseStatus.POST_USERS_INVALID_EMAIL;
+import static com.example.demo.config.BaseResponseStatus.USERS_EMPTY_USER_ID;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 
@@ -67,14 +68,13 @@ public class UserController {
     @DeleteMapping("/delete/{userIdx}") // (GET) 127.0.0.1:9000/users/:userIdx
     public BaseResponse<Object> deleteUserByIdx(@PathVariable("userIdx")int userIdx) {
         try{
-           /* if(userProvider.getUsersByIdx(userIdx) == null){
-                return new BaseResponse<>(USERS_EMPTY_USER_ID);
-            }*/System.out.print("!!!!!!!!!!!!!!!controller try!");
-            userProvider.deleteUser(userIdx);
-            return new BaseResponse<>(userProvider.deleteUser(userIdx));
-        } catch (BaseException e) {
-            logger.error("Error DeleteMapping COntroller ",e);
-		throw new RuntimeException(e);
+
+            System.out.print("!!!!!!!!!!!!!!!controller try!");
+            Object getDeleteUserRes = userProvider.deleteUser(userIdx);
+            return new BaseResponse<>(getDeleteUserRes);
+        } catch (BaseException exception) {
+            logger.error("Error DeleteMapping COntroller ",exception);
+		return new BaseResponse<>(exception.getStatus());
         }
     }
     /**
