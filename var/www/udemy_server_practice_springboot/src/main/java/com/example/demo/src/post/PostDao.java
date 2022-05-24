@@ -2,8 +2,6 @@ package com.example.demo.src.post;
 
 
 import com.example.demo.src.post.model.*;
-import com.example.demo.src.user.model.PatchUserReq;
-import com.example.demo.src.user.model.PostUserReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -134,15 +132,16 @@ public class PostDao {
     }
 
     // 게시글 작성
-    public int insertPost(int userIdx, PostPostReq postPostReq){
+    public int insertPost(int userIdx, String content){
         String insertPostQuery =
             "        INSERT INTO Post(userIdx, content)\n" +
                 "        VALUES (?, ?);";
-        Object[] insertPostParams = new Object[]{userIdx,postPostReq.getContent()};
+        //insert를 사용할 떈 return을 해주는게 아니라 update를 해줘야함
+        Object[] insertPostParams = new Object[]{userIdx, content};
         this.jdbcTemplate.update(insertPostQuery, insertPostParams);
 
-        String lastInserIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery,int.class);
 
     }
 
@@ -154,22 +153,21 @@ public class PostDao {
         Object[] insertPostImgParams = new Object[]{postIdx,postImgsUrlReq.getImgUrl()};
         this.jdbcTemplate.update(insertPostImgQuery, insertPostImgParams);
 
-        String lastInserIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+        String lastInsertIdQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
     // 게시글  수정
-    public int updatePost(int postIdx,  PatchPostReq patchPostReq){
+    public int updatePost(int postIdx, String content){
         String updatePostQuery = "UPDATE Post\n" +
             "        SET content = ?\n" +
             "        WHERE postIdx = ?" ;
-        Object[] updatePostParams = new Object[]{patchPostReq.getContent(), postIdx};
+        Object[] updatePostParams = new Object[]{content, postIdx};
 
         return this.jdbcTemplate.update(updatePostQuery,updatePostParams);
     }
-
-    //게시글 삭제
-    public int updatePostStatus(int postIdx){
+    //삭제
+    public int deletePost(int postIdx){
         String deleteUserQuery = "UPDATE Post\n" +
             "        SET status = 'INACTIVE'\n" +
             "        WHERE postIdx = ? ";
@@ -177,4 +175,13 @@ public class PostDao {
 
         return this.jdbcTemplate.update(deleteUserQuery,deleteUserParams);
     }
+   /* //게시글 삭제
+    public int updatePostStatus(int postIdx){
+        String deleteUserQuery = "UPDATE Post\n" +
+            "        SET status = 'INACTIVE'\n" +
+            "        WHERE postIdx = ? ";
+        Object[] deleteUserParams = new Object[]{postIdx};
+
+        return this.jdbcTemplate.update(deleteUserQuery,deleteUserParams);
+    }*/
 }

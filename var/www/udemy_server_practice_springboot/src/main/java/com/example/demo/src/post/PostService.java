@@ -2,9 +2,7 @@ package com.example.demo.src.post;
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.config.secret.Secret;
 import com.example.demo.src.post.model.*;
-import com.example.demo.src.user.model.PatchUserReq;
 //import com.example.demo.utils.AES128;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -33,20 +31,22 @@ public class PostService {
     }
 
     //게시글 작성
-    public PostPostRes createPost(int userIdx, PostPostReq postPostReq) throws BaseException {
+    public PostPostsRes createPost(int userIdx, PostPostsReq postPostsReq) throws BaseException {
 
 
         try{
-            int postIdx = postDao.insertPost(userIdx, postPostReq);
-            for(int i=0; i< postPostReq.getPostImgsUrl().size(); i++) {
-                postDao.insertPostImgs(postIdx, postPostReq.getPostImgsUrl().get(i));
+            int postIdx = postDao.insertPost(userIdx, postPostsReq.getContent());
+
+            for(int i=0; i< postPostsReq.getPostImgUrl().size(); i++) {
+                //게시물의 이미지는 리스트로 넣어줘야하기 때문에 for문(반복문)
+                postDao.insertPostImgs(postIdx, postPostsReq.getPostImgUrl().get(i));
             }
-            return new PostPostRes(postIdx);
+            return new PostPostsRes(postIdx);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-/*
+
 
     // 게시물 수정
     public void modifyPost(int userIdx,int postIdx, PatchPostReq patchPostReq) throws BaseException {
@@ -61,7 +61,7 @@ public class PostService {
             throw new BaseException(POSTS_EMPTY_USER_POST);
         }
         try{
-            int result = postDao.updatePost(postIdx,patchPostReq);
+            int result = postDao.updatePost(postIdx,patchPostReq.getContent());
             if(result == 0){
                 throw new BaseException(MODIFY_FAIL_POST);
             }
@@ -71,24 +71,25 @@ public class PostService {
     }
 
     // 회원 삭제
-    public void deletePost(int userIdx,int postIdx) throws BaseException {
-        if(postProvider.checkUserExist(userIdx) ==0){
+    //public void deletePost(int userIdx,int postIdx) throws BaseException {
+    public void deletePost(int postIdx) throws BaseException {
+      /*  if(postProvider.checkUserExist(userIdx) ==0){
             throw new BaseException(USERS_EMPTY_USER_ID);
-        }
+        }*/
         if(postProvider.checkPostExist(postIdx) ==0){
             throw new BaseException(POSTS_EMPTY_POST_ID);
         }
 
-        if(postProvider.checkUserPostExist(userIdx, postIdx)==0){
+       /* if(postProvider.checkUserPostExist(userIdx, postIdx)==0){
             throw new BaseException(POSTS_EMPTY_USER_POST);
-        }
+        }*/
         try{
-            int result = postDao.updatePostStatus(postIdx);
+            int result = postDao.deletePost(postIdx);
             if(result == 0){
                 throw new BaseException(DELETE_FAIL_POST);
             }
         } catch(Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
-    }*/
+    }
 }
