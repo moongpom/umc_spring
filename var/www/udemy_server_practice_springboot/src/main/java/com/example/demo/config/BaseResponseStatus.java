@@ -29,8 +29,11 @@ public enum BaseResponseStatus {
     POST_USERS_EMPTY_EMAIL(false, 2015, "이메일을 입력해주세요."),
     POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
     POST_USERS_EXISTS_EMAIL(false,2017,"중복된 이메일입니다."),
-
-
+    POST_POSTS_INVALID_CONTENTS(false,2018,"내용의 글자수를 확인해주세요"),
+    POST_POSTS_EMPTY_IMGURL(false, 2019,"게시물의 이미지를 올려주세요"),
+//post
+    POSTS_EMPTY_POST_ID(false, 2020,"게시물 id가 비었습니다"),
+    POSTS_EMPTY_USER_POST(false, 2021,"user의 post가 없습니다"),
 
     /**
      * 3000 : Response 오류
@@ -52,7 +55,8 @@ public enum BaseResponseStatus {
 
     //[PATCH] /users/{userIdx}
     MODIFY_FAIL_USERNAME(false,4014,"유저네임 수정 실패"),
-
+    MODIFY_FAIL_POST(false,4015,"게시글 수정 실패"),
+    DELETE_FAIL_POST(false,4016,"게시글 삭제 실패"),
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");
 
